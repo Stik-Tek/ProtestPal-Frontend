@@ -2,42 +2,57 @@
 
 import React from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
-import UserTestimonialCard from './CardTemplates/UserTestimonialCard'; // Import the UserTestimonialCard component
-import ServiceCard from './CardTemplates/ServiceCard'; // Import the ServiceCard component
+import { useNavigate } from 'react-router-dom';
+import UserTestimonialCard from './CardTemplates/UserTestimonialCard';
+import ServiceCard from './CardTemplates/ServiceCard';
 
-function HomePage() {
-    // Sample data for available services and user testimonials
-    const services = [
-      {
-        title: 'Service 1',
-        description: 'Description of Service 1.',
-        buttonText: 'Learn More',
-      },
-      {
-        title: 'Service 2',
-        description: 'Description of Service 2.',
-        buttonText: 'Learn More',
-      },
-      // Add more services as needed
-    ];
-    const userTestimonials = [
-      {
-        userAvatar: 'user1.jpg',
-        userName: 'John Doe',
-        userPosition: 'Property Owner',
-        userTestimonial:
-          'ProtestPal helped me save hundreds on my property taxes. Highly recommended!',
-      },
-      {
-        userAvatar: 'user2.jpg',
-        userName: 'Jane Smith',
-        userPosition: 'Real Estate Agent',
-        userTestimonial:
-          'I use ProtestPal to assist my clients with property tax protests. It makes the process so much easier.',
-      },
-      // Add more user testimonials as needed
-    ];
-  
+function HomePage({ onSignUpClick }) {
+  const navigate = useNavigate();
+
+  const services = [
+    {
+      title: 'Property Assessment',
+      description: 'Look up your property details and tax information quickly and easily.',
+      buttonText: 'Get Started',
+      path: '/property-assessment',
+    },
+    {
+      title: 'File a Protest',
+      description: 'Step-by-step guidance to file your property tax protest with confidence.',
+      buttonText: 'File Now',
+      path: '/file-protest',
+    },
+    {
+      title: 'Tax Calculator',
+      description: 'Calculate your potential savings from a successful property tax protest.',
+      buttonText: 'Calculate',
+      path: '/tax-calculator',
+    },
+  ];
+
+  const userTestimonials = [
+    {
+      userAvatar: 'https://via.placeholder.com/64',
+      userName: 'John Doe',
+      userPosition: 'Property Owner',
+      userTestimonial:
+        'ProtestPal helped me save $2,400 on my property taxes. The process was straightforward and the tools were incredibly helpful!',
+    },
+    {
+      userAvatar: 'https://via.placeholder.com/64',
+      userName: 'Jane Smith',
+      userPosition: 'Real Estate Agent',
+      userTestimonial:
+        'I recommend ProtestPal to all my clients. It makes property tax protests simple and accessible for everyone.',
+    },
+    {
+      userAvatar: 'https://via.placeholder.com/64',
+      userName: 'Mike Johnson',
+      userPosition: 'Small Business Owner',
+      userTestimonial:
+        'As a business owner, saving on property taxes matters. ProtestPal gave me the tools to challenge my assessment successfully.',
+    },
+  ];
   return (
     <div>
       {/* Header */}
@@ -49,7 +64,7 @@ function HomePage() {
               <p className="lead">
                 Your trusted partner in property tax protests.
               </p>
-              <Button variant="primary" size="lg">
+              <Button variant="primary" size="lg" onClick={() => navigate('/property-assessment')}>
                 Get Started
               </Button>
             </Col>
@@ -67,7 +82,7 @@ function HomePage() {
                 Take control of your property taxes. File protests, connect with
                 others, and stay informed about tax-related news.
               </p>
-              <Button variant="info">Learn More</Button>
+              <Button variant="info" onClick={() => navigate('/about')}>Learn More</Button>
             </Col>
             <Col lg={6}>
               <Card>
@@ -77,7 +92,7 @@ function HomePage() {
                     Join ProtestPal and start saving on your property taxes
                     today.
                   </p>
-                  <Button variant="primary">Sign Up</Button>
+                  <Button variant="primary" onClick={onSignUpClick}>Sign Up</Button>
                 </Card.Body>
               </Card>
             </Col>
@@ -100,6 +115,7 @@ function HomePage() {
                   title={service.title}
                   description={service.description}
                   buttonText={service.buttonText}
+                  onClick={() => navigate(service.path)}
                 />
               </Col>
             ))}
